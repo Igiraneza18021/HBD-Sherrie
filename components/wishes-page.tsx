@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { ArrowLeft, MessageCircle, Heart, Star, Loader2 } from "lucide-react"
+import { ArrowLeft, MessageCircle, Heart, Loader2 } from "lucide-react"
 import Link from "next/link"
 import AddWishModal from "./add-wish-modal"
 
@@ -23,7 +23,6 @@ export default function WishesPage({ birthdayPerson, initialWishes }: WishesPage
   const [wishes, setWishes] = useState<Wish[]>(initialWishes)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [loading, setLoading] = useState(false)
-  const [currentIndex, setCurrentIndex] = useState(0)
 
   const refreshWishes = async () => {
     setLoading(true)
@@ -36,14 +35,6 @@ export default function WishesPage({ birthdayPerson, initialWishes }: WishesPage
     } finally {
       setLoading(false)
     }
-  }
-
-  const nextWish = () => {
-    setCurrentIndex((prev) => (prev + 1) % wishes.length)
-  }
-
-  const prevWish = () => {
-    setCurrentIndex((prev) => (prev - 1 + wishes.length) % wishes.length)
   }
 
   return (
@@ -60,7 +51,7 @@ export default function WishesPage({ birthdayPerson, initialWishes }: WishesPage
 
         <div className="text-center mb-6">
           <h1 className="text-3xl font-bold mb-2">Birthday Wishes for {birthdayPerson}</h1>
-          <p className="text-purple-100">Swipe through special messages</p>
+          <p className="text-purple-100">See all the special messages</p>
         </div>
 
         {loading ? (
@@ -69,41 +60,26 @@ export default function WishesPage({ birthdayPerson, initialWishes }: WishesPage
             <span className="ml-2">Loading birthday wishes...</span>
           </div>
         ) : wishes.length > 0 ? (
-          <div className="mb-6">
-            <Card className="bg-gradient-to-br from-pink-400 to-red-500 border-none shadow-lg">
-              <CardContent className="p-6">
-                <div className="flex justify-between items-start mb-4">
-                  <Star className="w-6 h-6 text-yellow-300" />
-                  <span className="text-sm text-pink-100">
-                    {currentIndex + 1} of {wishes.length}
-                  </span>
-                </div>
-                <p className="text-white mb-4 leading-relaxed">{wishes[currentIndex]?.message}</p>
-                <div className="flex items-center">
-                  <Heart className="w-4 h-4 mr-2 text-pink-200" />
-                  <span className="text-pink-100">From: {wishes[currentIndex]?.sender_name}</span>
-                </div>
-              </CardContent>
-            </Card>
-
-            {wishes.length > 1 && (
-              <div className="flex justify-between mt-4">
-                <Button onClick={prevWish} variant="ghost" className="text-white hover:bg-white/20">
-                  Previous
-                </Button>
-                <div className="flex space-x-2 items-center">
-                  {wishes.map((_, index) => (
-                    <div
-                      key={index}
-                      className={`w-2 h-2 rounded-full ${index === currentIndex ? "bg-white" : "bg-white/40"}`}
-                    />
-                  ))}
-                </div>
-                <Button onClick={nextWish} variant="ghost" className="text-white hover:bg-white/20">
-                  Next
-                </Button>
-              </div>
-            )}
+          <div className="mb-6 space-y-4">
+            {wishes.map((wish, index) => (
+              <Card
+                key={wish.id}
+                className="bg-gradient-to-br from-pink-400 to-red-500 border-none shadow-lg"
+              >
+                <CardContent className="p-6">
+                  <div className="flex justify-between items-start mb-4">
+                    <span className="text-sm text-pink-100">
+                      {index + 1} of {wishes.length}
+                    </span>
+                  </div>
+                  <p className="text-white mb-4 leading-relaxed">{wish.message}</p>
+                  <div className="flex items-center">
+                    <Heart className="w-4 h-4 mr-2 text-pink-200" />
+                    <span className="text-pink-100">From: {wish.sender_name}</span>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
           </div>
         ) : (
           <div className="text-center py-12">
