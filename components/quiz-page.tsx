@@ -1,9 +1,9 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { ArrowLeft, Gamepad2Icon as GameController2, Trophy, X, Check } from "lucide-react"
+import { ArrowLeft, Gamepad2Icon as GameController2, Trophy, X, Check, Clock } from "lucide-react"
 import Link from "next/link"
 
 interface Question {
@@ -28,6 +28,7 @@ export default function QuizPage({ birthdayPerson, questions }: QuizPageProps) {
   const [score, setScore] = useState(0)
   const [quizCompleted, setQuizCompleted] = useState(false)
   const [answers, setAnswers] = useState<string[]>([])
+  const [timeLeft, setTimeLeft] = useState(15)
 
   const handleAnswerSelect = (answer: string) => {
     setSelectedAnswer(answer)
@@ -68,6 +69,20 @@ export default function QuizPage({ birthdayPerson, questions }: QuizPageProps) {
     if (percentage >= 40) return "Not bad! Keep learning! 📚"
     return "Keep trying! Practice makes perfect! 💪"
   }
+
+  useEffect(() => {
+    if (!showResult && timeLeft > 0 && !quizCompleted) {
+      const timer = setTimeout(() => setTimeLeft(timeLeft - 1), 1000)
+      return () => clearTimeout(timer)
+    } else if (timeLeft === 0 && !showResult && !quizCompleted) {
+      // Auto-submit empty answer when time runs out
+      handleAnswerSelect("")
+    }
+  }, [timeLeft, showResult, quizCompleted])
+
+  useEffect(() => {
+    setTimeLeft(15)
+  }, [currentQuestion])
 
   if (quizCompleted) {
     return (
@@ -127,8 +142,17 @@ export default function QuizPage({ birthdayPerson, questions }: QuizPageProps) {
               Back
             </Button>
           </Link>
-          <div className="text-sm text-purple-200">
-            {currentQuestion + 1} of {questions.length}
+          <div className="flex justify-between items-center mb-6 text-yellow-300">
+            <div className="flex items-center space-x-2">
+              <Trophy className="w-5 h-5" />
+              <span>
+                {score}/{currentQuestion + (showResult ? 1 : 0)}
+              </span>
+            </div>
+            <div className="flex items-center space-x-2">
+              <Clock className="w-5 h-5" />
+              <span>{timeLeft}s</span>
+            </div>
           </div>
         </div>
 
@@ -180,10 +204,8 @@ export default function QuizPage({ birthdayPerson, questions }: QuizPageProps) {
           </CardContent>
         </Card>
 
-        <div className="text-center text-purple-200">
-          <p>
-            Score: {score}/{currentQuestion + (showResult ? 1 : 0)}
-          </p>
+        <div className="text-center text-purple-200 mb-4 text-sm">
+          Question {currentQuestion + 1} of {questions.length}
         </div>
       </div>
 

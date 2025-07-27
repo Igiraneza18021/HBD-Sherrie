@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { ArrowLeft, Sparkles, Music } from "lucide-react"
+import { ArrowLeft, Sparkles } from "lucide-react"
 import Link from "next/link"
 
 interface SongPageProps {
@@ -10,6 +10,9 @@ interface SongPageProps {
 }
 
 export default function SongPage({ birthdayPerson }: SongPageProps) {
+  const tiktokVideoId = "ZMScF5jk8" // Extracted from vm.tiktok.com/ZMScF5jk8/
+  const embedUrl = `https://www.tiktok.com/embed/v2/${tiktokVideoId}?autoplay=1&loop=1&mute=0`
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-400 via-purple-500 to-pink-500 p-6 text-white">
       <div className="max-w-md mx-auto">
@@ -32,22 +35,22 @@ export default function SongPage({ birthdayPerson }: SongPageProps) {
         </div>
 
         <div className="mb-8">
-          <div className="bg-black/30 rounded-lg p-6 mb-6">
-            <div className="flex items-center justify-center mb-4">
-              <div className="w-16 h-16 bg-pink-500 rounded-full flex items-center justify-center animate-pulse">
-                <Music className="w-8 h-8 text-white" />
+          <Card className="bg-black/30 rounded-lg p-2 mb-6 overflow-hidden">
+            <CardContent className="p-0">
+              <div className="relative w-full" style={{ paddingTop: "177.7778%" /* 9:16 aspect ratio */ }}>
+                <iframe
+                  src={embedUrl}
+                  allow="autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                  title="TikTok Video"
+                  className="absolute top-0 left-0 w-full h-full rounded-lg"
+                  style={{ border: "none" }}
+                ></iframe>
               </div>
-            </div>
-            <p className="text-center text-purple-100 mb-4">🎵 Happy Birthday Song Playing... 🎵</p>
-            <div className="w-full bg-white/20 rounded-full h-2 mb-4">
-              <div className="bg-pink-400 h-2 rounded-full w-1/3 animate-pulse"></div>
-            </div>
-            <div className="flex items-center justify-center space-x-4 text-purple-200">
-              <span>0:30</span>
-              <span>/</span>
-              <span>2:15</span>
-            </div>
-          </div>
+              <p className="text-center text-purple-100 text-sm mt-4">🎵 Happy Birthday Remix 🎵</p>
+              <p className="text-center text-purple-100 text-xs mt-1">By Abaila dane</p>
+            </CardContent>
+          </Card>
         </div>
 
         <Card className="bg-white/10 backdrop-blur-sm border-white/20">

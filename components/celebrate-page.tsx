@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { ArrowLeft, Cake, Music, Gamepad2Icon as GameController2 } from "lucide-react"
 import Link from "next/link"
+import Fireworks from "./fireworks" // Import the Fireworks component
 
 interface CelebratePageProps {
   birthdayPerson: string
@@ -11,8 +12,11 @@ interface CelebratePageProps {
 
 export default function CelebratePage({ birthdayPerson }: CelebratePageProps) {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-400 via-purple-500 to-pink-500 p-6 text-white">
-      <div className="max-w-md mx-auto">
+    <div className="min-h-screen bg-gradient-to-br from-purple-400 via-purple-500 to-pink-500 p-6 text-white relative overflow-hidden">
+      <Fireworks /> {/* Add Fireworks here */}
+      <div className="max-w-md mx-auto relative z-10">
+        {" "}
+        {/* Ensure content is above fireworks */}
         <div className="flex items-center mb-6">
           <Link href="/">
             <Button variant="ghost" size="sm" className="text-white hover:bg-white/20">
@@ -21,12 +25,10 @@ export default function CelebratePage({ birthdayPerson }: CelebratePageProps) {
             </Button>
           </Link>
         </div>
-
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold mb-2">Happy Birthday {birthdayPerson}!</h1>
           <p className="text-purple-100">Today is all about celebrating you!</p>
         </div>
-
         <div className="space-y-4">
           <Card className="bg-white/10 backdrop-blur-sm border-white/20">
             <CardContent className="p-6">
@@ -79,8 +81,7 @@ export default function CelebratePage({ birthdayPerson }: CelebratePageProps) {
           </Card>
         </div>
       </div>
-
-      <footer className="text-center text-purple-200 text-sm mt-12">
+      <footer className="text-center text-purple-200 text-sm mt-12 relative z-10">
         <p>Made with ❤️ by Igiraneza Patrick</p>
         <a
           href="https://instagram.com/igiraneza.patrick"
