@@ -31,22 +31,10 @@ CREATE TABLE IF NOT EXISTS quiz_questions (
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Replace the quiz questions with the better ones from the images
-DELETE FROM quiz_questions;
-
+-- Insert sample quiz questions
 INSERT INTO quiz_questions (question, option_a, option_b, option_c, option_d, correct_answer) VALUES
-('What''s the best birthday gift?', 'Money', 'A surprise party', 'A thoughtful handmade gift', 'An expensive gadget', 'C'),
-('What''s the perfect birthday cake flavor?', 'Chocolate', 'Vanilla', 'Red Velvet', 'Whatever the birthday person likes!', 'D'),
-('What makes a birthday special?', 'Expensive gifts', 'Lots of social media posts', 'Time with loved ones', 'A big party', 'C'),
-('What''s the best birthday activity?', 'Shopping spree', 'Movie marathon', 'Adventure outing', 'Whatever makes the birthday person happy!', 'D'),
-('How should you celebrate someone''s birthday?', 'Post about it online', 'Buy expensive things', 'Show them you care', 'Throw a huge party', 'C');
-
--- Add media storage table for birthday videos/audio
-CREATE TABLE IF NOT EXISTS birthday_media (
-  id SERIAL PRIMARY KEY,
-  file_name VARCHAR(255) NOT NULL,
-  file_path VARCHAR(500) NOT NULL,
-  file_type VARCHAR(50) NOT NULL, -- 'video' or 'audio'
-  mime_type VARCHAR(100) NOT NULL,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
+('What makes birthdays special?', 'Cake and gifts', 'Friends and family', 'Celebrations and love', 'All of the above', 'D'),
+('When do we celebrate birthdays?', 'Every month', 'Once a year', 'Every week', 'Twice a year', 'B'),
+('What is the most important part of a birthday?', 'The presents', 'The cake', 'Being with loved ones', 'The decorations', 'C'),
+('How should we make someone feel on their birthday?', 'Ignored', 'Special and loved', 'Ordinary', 'Stressed', 'B'),
+('What is a birthday wish?', 'A complaint', 'A kind message or hope for someone', 'A demand', 'A joke', 'B');
