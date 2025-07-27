@@ -10,8 +10,9 @@ interface SongPageProps {
 }
 
 export default function SongPage({ birthdayPerson }: SongPageProps) {
-  const tiktokVideoId = "ZMScF5jk8" // Extracted from vm.tiktok.com/ZMScF5jk8/
-  const embedUrl = `https://m.youtube.com/watch?v=bihczxeU-II&pp=ygUmSGFwcHkgYmlydGhkYXkgY2hvbGVvZ3JhcGh5IGRhbmNlIDFtaW4%3D`
+  const tiktokVideoId = "ZMScF5jk8" // TikTok video ID extracted from vm.tiktok.com/ZMScF5jk8/
+  // TikTok embed URL using the video ID
+  const embedUrl = `https://www.tiktok.com/embed/${tiktokVideoId}`
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-400 via-purple-500 to-pink-500 p-6 text-white">
