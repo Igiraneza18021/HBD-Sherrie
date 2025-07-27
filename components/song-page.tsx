@@ -66,7 +66,7 @@ export default function SongPage({ birthdayPerson }: SongPageProps) {
             </p>
             <p className="text-purple-100">
               We hope this birthday is just the beginning of an amazing year ahead filled with wonderful adventures and
-              beautiful moments!
+              beautiful moments!.
             </p>
           </CardContent>
         </Card>
