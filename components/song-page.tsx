@@ -10,9 +10,9 @@ interface SongPageProps {
 }
 
 export default function SongPage({ birthdayPerson }: SongPageProps) {
-  const tiktokVideoId = "ZMScF5jk8" // TikTok video ID extracted from vm.tiktok.com/ZMScF5jk8/
-  // TikTok embed URL using the video ID
-  const embedUrl = `https://www.tiktok.com/embed/${tiktokVideoId}`
+  // YouTube video ID from your link (bihczxeU-II)
+  const youtubeVideoId = "bihczxeU-II"
+  const embedUrl = `https://www.youtube.com/embed/${youtubeVideoId}`
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-400 via-purple-500 to-pink-500 p-6 text-white">
@@ -38,12 +38,12 @@ export default function SongPage({ birthdayPerson }: SongPageProps) {
         <div className="mb-8">
           <Card className="bg-black/30 rounded-lg p-2 mb-6 overflow-hidden">
             <CardContent className="p-0">
-              <div className="relative w-full" style={{ paddingTop: "177.7778%" /* 9:16 aspect ratio */ }}>
+              <div className="relative w-full" style={{ paddingTop: "56.25%" /* 16:9 aspect ratio */ }}>
                 <iframe
                   src={embedUrl}
                   allow="autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
-                  title="TikTok Video"
+                  title="Birthday Song Video"
                   className="absolute top-0 left-0 w-full h-full rounded-lg"
                   style={{ border: "none" }}
                 ></iframe>
